@@ -17,6 +17,11 @@ class SolidEntity : public VisibleEntity {
 		//Accessors
 		SDL_Rect* getBoundingBox();
 
+		//Mutators
+		void setPosVector(int x, int y);
+		void setXPos(int x);
+		void setYPos(int y);
+
 		//Member functions
 		void move();
 		bool loadTextureFromPath(std::string path);

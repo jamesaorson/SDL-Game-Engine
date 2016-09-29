@@ -19,7 +19,7 @@ class VisibleEntity : public Entity {
 		Texture* getTexture();
 
 		//Member functions
-		virtual void move();
+		void move();
 		virtual bool loadTextureFromPath(std::string path);
 		#ifdef _SDL_TTF_H
 		bool loadTextureFromFont(std::string path, SDL_Color fontColor);
@@ -28,7 +28,6 @@ class VisibleEntity : public Entity {
 
 	protected:
 		Texture texture;
-		Vector2D velocity;
 };
 
 #endif //VISIBLE_ENTITY_H/

@@ -2,19 +2,13 @@
 
 //Constructors
 VisibleEntity::VisibleEntity() : Entity() {
-	velocity.x = DEFAULT_X;
-	velocity.y = DEFAULT_Y;
 }
 
 VisibleEntity::VisibleEntity(std::string path) {
-	velocity.x = DEFAULT_X;
-	velocity.y = DEFAULT_Y;
 	texture.loadTextureFromPath(path);
 }
 
 VisibleEntity::VisibleEntity(std::string path, SDL_Color fontColor) {
-	velocity.x = DEFAULT_X;
-	velocity.y = DEFAULT_Y;
 	texture.loadTextureFromFont(path, fontColor);
 }
 

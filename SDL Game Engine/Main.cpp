@@ -14,7 +14,7 @@
 #include "VisibleEntity.h"
 #include "SolidEntity.h"
 #include "PlayerEntity.h"
-//#include "EnemyEntity.h"
+#include "EnemyEntity.h"
 
 //Usually bad practice to use global variables, but not letting these be global 
 //makes the entirety of an SDL game pretty cancerous. It is more important not to 
@@ -49,7 +49,7 @@ Texture startButtonSpriteSheet;
 Button startButton;
 SDL_Rect buttonSprites[TOTAL_BUTTON_STATES];
 PlayerEntity player;
-//EnemyEntity enemy;
+EnemyEntity enemy;
 
 int main(int argc, char* args[]) {
 
@@ -69,7 +69,7 @@ int main(int argc, char* args[]) {
 			std::stringstream stream;
 
 
-			//enemy.setPos(LEVEL_WIDTH / 2, LEVEL_HEIGHT / 2);
+			enemy.setPosVector(LEVEL_WIDTH / 2, LEVEL_HEIGHT / 2);
 
 			while (!quit) {
 				if (gameState == MENU_STATE && currentButtonState == BUTTON_UP && previousButtonState == BUTTON_DOWN) {
@@ -95,6 +95,11 @@ int main(int argc, char* args[]) {
 				if (gameState == PLAY_STATE) {
 					player.move();
 					//enemy.move();
+					
+					if (checkCollisions(player.getBoundingBox(), enemy.getBoundingBox())) {
+						player.setPosVector(player.getXPos() - player.getXVel(), player.getYPos() - player.getYVel());
+						enemy.setPosVector(enemy.getXPos() - enemy.getXVel(), enemy.getYPos() - enemy.getYVel());
+					}
 
 					camera.x = (player.getXPos() + player.getTexture()->getWidth() / 2) - SCREEN_WIDTH / 2;
 					camera.y = (player.getYPos() + player.getTexture()->getHeight() / 2) - SCREEN_HEIGHT / 2;
@@ -135,7 +140,7 @@ int main(int argc, char* args[]) {
 				} else if (gameState == PLAY_STATE) {
 					background.render(0, 0, &camera);
 					player.render(player.getXPos() - camera.x, player.getYPos() - camera.y);
-					//enemy.render(enemy.getXPos() - camera.x, enemy.getYPos() - camera.y);
+					enemy.render(enemy.getXPos() - camera.x, enemy.getYPos() - camera.y);
 				}
 
 				//Update screen
@@ -221,14 +226,14 @@ bool init() {
 bool loadContent() {
 	bool success = true;
 
-	/*if (!player.loadTextureFromPath("Content/Textures/<filename>")) {
+	if (!player.loadTextureFromPath("Content/Textures/blackBox.png")) {
 		printf("Failed to load player texture!\n");
 		success = false;
-	}*/
-	/*if (!enemy.loadTextureFromPath("Content/Textures/<filename>")) {
+	}
+	if (!enemy.loadTextureFromPath("Content/Textures/redBox.png")) {
 		printf("Failed to load enemy texture!\n");
 		success = false;
-	}*/
+	}
 	if (!background.loadTextureFromPath("Content/Textures/bg.png")) {
 		printf("Failed to load background texture!\n");
 		success = false;

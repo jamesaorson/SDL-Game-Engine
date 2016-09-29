@@ -1,5 +1,9 @@
 #include "SolidEntity.h"
 #include "Vector2D.h"
+#include "EnemyEntity.h"
+#include "MainFunctions.h"
+
+extern EnemyEntity enemy;
 
 //Constructors
 SolidEntity::SolidEntity() : VisibleEntity() {
@@ -26,6 +30,27 @@ SolidEntity::~SolidEntity() {}
 //Accessors
 SDL_Rect* SolidEntity::getBoundingBox() {
 	return &boundingBox;
+}
+
+//Mutators
+void SolidEntity::setPosVector(int x, int y) {
+	position.x = x;
+	position.y = y;
+
+	boundingBox.x = x;
+	boundingBox.y = y;
+}
+
+void SolidEntity::setXPos(int x) {
+	position.x = x;
+
+	boundingBox.x = x;
+}
+
+void SolidEntity::setYPos(int y) {
+	position.y = y;
+
+	boundingBox.y = y;
 }
 
 //Member functions

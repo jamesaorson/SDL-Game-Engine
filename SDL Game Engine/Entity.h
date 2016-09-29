@@ -28,15 +28,22 @@ class Entity {
 		Vector2D getPosVector();
 		int getXPos();
 		int getYPos();
+		Vector2D getVelVector();
+		int getXVel();
+		int getYVel();
 		int getID();
 	
 		//Mutators
-		void setPosVector(int x, int y);
-		void setXPos(int x);
-		void setYPos(int y);
+		virtual void setPosVector(int x, int y);
+		virtual void setXPos(int x);
+		virtual void setYPos(int y);
+
+		//Member functions
+		virtual void move();
 
 	protected:
 		Vector2D position;
+		Vector2D velocity;
 		int ID;
 };
 
