@@ -15,7 +15,6 @@ extern const int BUTTON_HEIGHT;
 extern int currentButtonState;
 extern int previousButtonState;
 extern SDL_Rect camera;
-extern SDL_Rect rect;
 
 class Entity {
 	public:

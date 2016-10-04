@@ -56,17 +56,30 @@ void SolidEntity::setYPos(int y) {
 //Member functions
 void SolidEntity::move() {
 	position.x += velocity.x;
-	position.y += velocity.y;
 
 	if ((position.x < 0) || (position.x + texture.getWidth() > LEVEL_WIDTH)) {
 		position.x -= velocity.x;
 	}
+
+	boundingBox.x = position.x;
+
+	if (checkCollisions(this->getBoundingBox(), enemy.getBoundingBox())) {
+		this->setPosVector(this->getXPos() - this->getXVel(), this->getYPos());
+		enemy.setPosVector(enemy.getXPos() - enemy.getXVel(), enemy.getYPos());
+	}
+
+	position.y += velocity.y;
+
 	if ((position.y < 0) || (position.y + texture.getHeight() > LEVEL_WIDTH)) {
 		position.y -= velocity.y;
 	}
 
-	boundingBox.x = position.x;
 	boundingBox.y = position.y;
+
+	if (checkCollisions(this->getBoundingBox(), enemy.getBoundingBox())) {
+		this->setPosVector(this->getXPos(), this->getYPos() - this->getYVel());
+		enemy.setPosVector(enemy.getXPos(), enemy.getYPos() - enemy.getYVel());
+	}
 }
 
 bool SolidEntity::loadTextureFromPath(std::string path) {
